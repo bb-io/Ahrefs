@@ -10,25 +10,25 @@ namespace Tests.Ahrefs;
 public class SiteExplorerActionsTests : TestBase
 {
     [TestMethod]
-    public async Task GetAllBacklinks_InsufficientPlan_ReturnsBacklinks()
+    public async Task GetBacklinks_InsufficientPlan_ThrowsException()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAllBacklinksRequest { Target = "blackbird.io" };
+        var request = new GetBacklinksRequest { Target = "blackbird.io" };
 
         // Act & Assert
-        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetAllBacklinks(request));
+        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetBacklinks(request));
     }
 
     [TestMethod]
-    public async Task GetAllBacklinks_TargetOnly_ReturnsBacklinks()
+    public async Task GetBacklinks_TargetOnly_ReturnsBacklinks()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAllBacklinksRequest { Target = "wordcount.com" };
+        var request = new GetBacklinksRequest { Target = "wordcount.com" };
 
         // Act
-        var result = await actions.GetAllBacklinks(request);
+        var result = await actions.GetBacklinks(request);
 
         // Assert
         PrintBacklinks(result);
@@ -36,14 +36,14 @@ public class SiteExplorerActionsTests : TestBase
     }
 
     [TestMethod]
-    public async Task GetAllBacklinks_TargetAndMode_ReturnsBacklinks()
+    public async Task GetBacklinks_TargetAndMode_ReturnsBacklinks()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAllBacklinksRequest { Target = "wordcount.com", Mode = "exact" };
+        var request = new GetBacklinksRequest { Target = "wordcount.com", Mode = "exact" };
 
         // Act
-        var result = await actions.GetAllBacklinks(request);
+        var result = await actions.GetBacklinks(request);
 
         // Assert
         PrintBacklinks(result);
@@ -51,14 +51,14 @@ public class SiteExplorerActionsTests : TestBase
     }
 
     [TestMethod]
-    public async Task GetAllBacklinks_TargetAndModeAndProtocol_ReturnsBacklinks()
+    public async Task GetBacklinks_TargetAndModeAndProtocol_ReturnsBacklinks()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAllBacklinksRequest { Target = "wordcount.com", Mode = "exact", Protocol = "http" };
+        var request = new GetBacklinksRequest { Target = "wordcount.com", Mode = "exact", Protocol = "http" };
 
         // Act
-        var result = await actions.GetAllBacklinks(request);
+        var result = await actions.GetBacklinks(request);
 
         // Assert
         PrintBacklinks(result);

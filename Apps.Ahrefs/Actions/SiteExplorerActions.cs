@@ -11,9 +11,9 @@ namespace Apps.Ahrefs.Actions;
 public class SiteExplorerActions(InvocationContext invocationContext) : Invocable(invocationContext)
 {
     [Action("Get backlinks", Description = "Gets all backlinks of the specified target")]
-    public async Task<BacklinksResponse> GetAllBacklinks([ActionParameter] GetAllBacklinksRequest request)
+    public async Task<BacklinksResponse> GetBacklinks([ActionParameter] GetBacklinksRequest request)
     {
         var client = new AhrefsClient(Creds);
-        return await client.GetAllBacklinks(request);
+        return await client.GetBacklinks(request);
     }
 }

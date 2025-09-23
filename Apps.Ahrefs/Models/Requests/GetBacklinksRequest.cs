@@ -4,7 +4,7 @@ using Blackbird.Applications.Sdk.Common.Dictionaries;
 
 namespace Apps.Ahrefs.Models.Requests;
 
-public class GetAllBacklinksRequest
+public class GetBacklinksRequest
 {
     [Display("Target", Description = "The target of the search: a domain or a URL")]
     public string Target { get; set; }

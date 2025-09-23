@@ -22,7 +22,7 @@ public class AhrefsClient : BlackBirdRestClient
         this.AddDefaultHeader("Authorization", creds.Get(CredsNames.ApiKey).Value);
     }
 
-    public async Task<BacklinksResponse> GetAllBacklinks(GetAllBacklinksRequest request)
+    public async Task<BacklinksResponse> GetBacklinks(GetBacklinksRequest request)
     {
         var query = new StringBuilder(
             $"/site-explorer/all-backlinks?target={request.Target}&" +
@@ -38,6 +38,29 @@ public class AhrefsClient : BlackBirdRestClient
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<BacklinksResponse>(restRequest);
     }
+
+    public async Task<KeywordsResponse> GetKeywords(GetKeywordsRequest request)
+    {
+        var query = new StringBuilder(
+            $"/keywords-explorer/overview?country={request.Country}&" +
+            $"select=keyword,clicks,cpc,cps"
+        );
+
+        if (request.Keywords != null && request.Keywords.Any())
+        {
+            string keywords = string.Join(",", request.Keywords);
+            query.Append($"&keywords={keywords}");
+        }
+
+        if (!string.IsNullOrEmpty(request.TargetMode))
+            query.Append($"&target_mode={request.TargetMode}");
+
+        if (!string.IsNullOrEmpty(request.Target))
+            query.Append($"&target={request.Target}");
+
+        var restRequest = new RestRequest(query.ToString());
+        return await ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
+    } 
 
     public override async Task<RestResponse> ExecuteWithErrorHandling(RestRequest request)
     {
