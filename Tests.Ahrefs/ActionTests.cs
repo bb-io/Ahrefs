@@ -1,5 +1,5 @@
 ﻿using Apps.Ahrefs.Actions;
-using Tests.Appname.Base;
+using Tests.Ahrefs.Base;
 
 namespace Tests.Ahrefs;
 

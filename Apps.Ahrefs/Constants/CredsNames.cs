@@ -2,5 +2,5 @@ namespace Apps.Ahrefs.Constants;
 
 public static class CredsNames
 {
-    public const string Token = "token";
+    public const string ApiKey = "api_key";
 }

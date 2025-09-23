@@ -1,6 +1,6 @@
 ﻿using Apps.Ahrefs.Handlers;
 using Blackbird.Applications.Sdk.Common.Dynamic;
-using Tests.Appname.Base;
+using Tests.Ahrefs.Base;
 
 namespace Tests.Ahrefs;
 

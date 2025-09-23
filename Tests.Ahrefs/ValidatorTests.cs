@@ -1,6 +1,6 @@
+using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Connections;
 using Blackbird.Applications.Sdk.Common.Authentication;
-using Tests.Appname.Base;
 
 namespace Tests.Ahrefs;
 
