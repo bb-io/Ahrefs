@@ -1,5 +1,4 @@
 using Apps.Ahrefs.Constants;
-using Apps.Ahrefs.Models;
 using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common.Authentication;
@@ -58,13 +57,12 @@ public class AhrefsClient : BlackBirdRestClient
 
     protected override Exception ConfigureErrorException(RestResponse response)
     {
-        var errorArray = JArray.Parse(response.Content);
+        var responseContent = response.Content;
 
-        var type = errorArray[0].ToString();
-        var details = errorArray[1] as JArray;
+        if (responseContent.Contains("Insufficient plan"))
+            throw new PluginMisconfigurationException("Your Ahrefs plan does not support this action");
 
-        var errorMessage = $"{type}: {string.Join(" - ", details)}";
-
+        var errorMessage = JArray.Parse(response.Content)[0].ToString();
         throw new PluginApplicationException(errorMessage);
     }
 }

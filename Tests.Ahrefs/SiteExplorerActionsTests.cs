@@ -2,12 +2,24 @@
 using Apps.Ahrefs.Actions;
 using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
+using Blackbird.Applications.Sdk.Common.Exceptions;
 
 namespace Tests.Ahrefs;
 
 [TestClass]
 public class SiteExplorerActionsTests : TestBase
 {
+    [TestMethod]
+    public async Task GetAllBacklinks_InsufficientPlan_ReturnsBacklinks()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetAllBacklinksRequest { Target = "blackbird.io" };
+
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetAllBacklinks(request));
+    }
+
     [TestMethod]
     public async Task GetAllBacklinks_TargetOnly_ReturnsBacklinks()
     {
