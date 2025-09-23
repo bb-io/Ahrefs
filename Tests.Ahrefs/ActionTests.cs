@@ -1,7 +1,7 @@
-﻿using Apps.Appname.Actions;
+﻿using Apps.Ahrefs.Actions;
 using Tests.Appname.Base;
 
-namespace Tests.Appname;
+namespace Tests.Ahrefs;
 
 [TestClass]
 public class ActionTests : TestBase

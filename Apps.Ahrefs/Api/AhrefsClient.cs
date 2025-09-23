@@ -6,11 +6,11 @@ using Blackbird.Applications.Sdk.Utils.RestSharp;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace Apps.Appname.Api;
+namespace Apps.Ahrefs.Api;
 
-public class Client : BlackBirdRestClient
+public class AhrefsClient : BlackBirdRestClient
 {
-    public Client(IEnumerable<AuthenticationCredentialsProvider> creds) : base(new()
+    public AhrefsClient(IEnumerable<AuthenticationCredentialsProvider> creds) : base(new()
     {
         BaseUrl = new Uri(""),
     })

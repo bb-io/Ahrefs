@@ -1,8 +1,8 @@
-using Apps.Appname.Connections;
+using Apps.Ahrefs.Connections;
 using Blackbird.Applications.Sdk.Common.Authentication;
 using Tests.Appname.Base;
 
-namespace Tests.Appname;
+namespace Tests.Ahrefs;
 
 [TestClass]
 public class ConnectionValidatorTests : TestBase

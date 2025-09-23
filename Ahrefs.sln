@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apps.Ahrefs", "Apps.Ahrefs\Apps.Ahrefs.csproj", "{4FAB6690-504A-BCFD-85FF-5EC6C37A7CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Ahrefs", "Tests.Ahrefs\Tests.Ahrefs.csproj", "{A37947BE-7CDE-71A1-52D1-D064C78C183E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FAB6690-504A-BCFD-85FF-5EC6C37A7CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FAB6690-504A-BCFD-85FF-5EC6C37A7CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FAB6690-504A-BCFD-85FF-5EC6C37A7CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FAB6690-504A-BCFD-85FF-5EC6C37A7CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37947BE-7CDE-71A1-52D1-D064C78C183E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37947BE-7CDE-71A1-52D1-D064C78C183E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37947BE-7CDE-71A1-52D1-D064C78C183E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37947BE-7CDE-71A1-52D1-D064C78C183E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {654AA62F-B989-4472-A56A-420779253B09}
+	EndGlobalSection
+EndGlobal

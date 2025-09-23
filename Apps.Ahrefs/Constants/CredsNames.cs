@@ -1,4 +1,4 @@
-namespace Apps.Appname.Constants;
+namespace Apps.Ahrefs.Constants;
 
 public static class CredsNames
 {
