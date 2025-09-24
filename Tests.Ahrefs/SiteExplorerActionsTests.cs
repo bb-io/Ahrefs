@@ -1,8 +1,9 @@
-﻿using Tests.Ahrefs.Base;
-using Apps.Ahrefs.Actions;
+﻿using Apps.Ahrefs.Actions;
 using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common.Exceptions;
+using Newtonsoft.Json;
+using Tests.Ahrefs.Base;
 
 namespace Tests.Ahrefs;
 
@@ -31,7 +32,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetBacklinks(request);
 
         // Assert
-        PrintBacklinks(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -46,7 +47,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetBacklinks(request);
 
         // Assert
-        PrintBacklinks(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -61,7 +62,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetBacklinks(request);
 
         // Assert
-        PrintBacklinks(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -76,7 +77,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetDomainRating(request);
 
         // Assert
-        Console.WriteLine($"{result.DomainRating.Rating} - {result.DomainRating.Rank}");
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -91,7 +92,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetDomainRating(request);
 
         // Assert
-        Console.WriteLine($"{result.DomainRating.Rating} - {result.DomainRating.Rank}");
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -106,7 +107,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetReferringDomains(request);
 
         // Assert
-        PrintReferringDomains(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -121,7 +122,7 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetReferringDomains(request);
 
         // Assert
-        PrintReferringDomains(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -136,22 +137,57 @@ public class SiteExplorerActionsTests : TestBase
         var result = await actions.GetReferringDomains(request);
 
         // Assert
-        PrintReferringDomains(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
-
-    private static void PrintBacklinks(BacklinksResponse result)
+    [TestMethod]
+    public async Task GetAnchors_TargetOnly_ReturnsAnchors()
     {
-        Console.WriteLine($"Total count: {result.Backlinks.Count}");
-        foreach (var item in result.Backlinks)
-            Console.WriteLine($"{item.Anchor} - {item.UrlTo}");
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetAnchorsRequest { Target = "ahrefs.com" };
+
+        // Act
+        var result = await actions.GetAnchors(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+    }
+    
+    [TestMethod]
+    public async Task GetAnchors_TargetAndMode_ReturnsAnchors()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetAnchorsRequest { Target = "ahrefs.com", Mode = "exact" };
+
+        // Act
+        var result = await actions.GetAnchors(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
     }
 
-    private static void PrintReferringDomains(ReferringDomainsResponse result)
+    [TestMethod]
+    public async Task GetAnchors_TargetAndModeAndProtocol_ReturnsAnchors()
     {
-        Console.WriteLine($"Total count: {result.ReferringDomains.Count}");
-        foreach (var item in result.ReferringDomains)
-            Console.WriteLine($"{item.Domain} - {item.LinksToTarget} - {item.DomainRating}");
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetAnchorsRequest { Target = "ahrefs.com", Mode = "exact", Protocol = "http" };
+
+        // Act
+        var result = await actions.GetAnchors(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+    }
+
+    private static void PrintJsonResult(object result)
+    {
+        Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
     }
 }
