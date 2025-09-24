@@ -1,6 +1,6 @@
 ﻿using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Actions;
-using Apps.Ahrefs.Models.Requests;
+using Apps.Ahrefs.Models.Requests.SiteExplorer;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 
 namespace Tests.Ahrefs;

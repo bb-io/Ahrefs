@@ -3,7 +3,7 @@ using Blackbird.Applications.Sdk.Common;
 
 namespace Apps.Ahrefs.Models.Entities;
 
-public class RelatedTerm
+public class Term
 {
     [Display("keyword")]
     public string Keyword { get; set; }

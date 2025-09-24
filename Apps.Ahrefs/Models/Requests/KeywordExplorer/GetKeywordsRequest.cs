@@ -7,7 +7,7 @@ namespace Apps.Ahrefs.Models.Requests.KeywordExplorer;
 public class GetKeywordsRequest
 {
     [StaticDataSource(typeof(CountryCodeStaticHandler))]
-    [Display("Country", Description = "The country where you want to search for keywords")]
+    [Display("Country")]
     public string Country { get; set; }
 
     [Display("Keywords", Description = "A list of keywords to show metrics for")]

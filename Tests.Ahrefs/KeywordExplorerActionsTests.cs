@@ -1,6 +1,6 @@
 ﻿using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Actions;
-using Apps.Ahrefs.Models.Requests;
+using Apps.Ahrefs.Models.Requests.KeywordExplorer;
 using Blackbird.Applications.Sdk.Common.Exceptions;
 
 namespace Tests.Ahrefs;
@@ -139,5 +139,20 @@ public class KeywordExplorerActionsTests : TestBase
         PrintJsonResult(result);
         Assert.IsNotNull(result);
         Assert.AreEqual(20, result.VolumeByCountry.Count);
+    }
+
+    [TestMethod]
+    public async Task GetMatchingTerms_ReturnsMatchingTerms()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetMatchingTermsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
+
+        // Act
+        var response = await actions.GetMatchingTerms(request);
+
+        // Assert
+        PrintJsonResult(response);
+        Assert.IsNotNull(response);
     }
 }
