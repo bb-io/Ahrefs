@@ -3,8 +3,8 @@ using Newtonsoft.Json;
 
 namespace Apps.Ahrefs.Models.Responses.KeywordExplorer;
 
-public class BacklinksResponse
+public class KeywordIdeasResponse
 {
-    [JsonProperty("backlinks")]
-    public List<Backlink> Backlinks { get; set; }
+    [JsonProperty("keywords")]
+    public List<KeywordIdea> Keywords { get; set; }
 }

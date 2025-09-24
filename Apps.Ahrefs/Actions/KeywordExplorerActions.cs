@@ -1,6 +1,6 @@
 ﻿using Apps.Ahrefs.Extensions;
 using Apps.Ahrefs.Models.Requests.KeywordExplorer;
-using Apps.Ahrefs.Models.Responses.SiteExplorer;
+using Apps.Ahrefs.Models.Responses.KeywordExplorer;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Exceptions;
@@ -55,7 +55,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
     }
 
     [Action("Get mathing terms", Description = "Gets matching terms of the specified country and keywords")]
-    public async Task<TermsResponse> GetMatchingTerms([ActionParameter] GetMatchingTermsRequest request)
+    public async Task<KeywordIdeasResponse> GetMatchingTerms([ActionParameter] GetMatchingTermsRequest request)
     {
         var query = new StringBuilder(
             $"/keywords-explorer/matching-terms?country={request.Country}" +
@@ -64,11 +64,11 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<TermsResponse>(restRequest);
+        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
     }
 
     [Action("Get related terms", Description = "Gets related terms of the specified country and keywords")]
-    public async Task<TermsResponse> GetRelatedTerms([ActionParameter] GetRelatedTermsRequest request)
+    public async Task<KeywordIdeasResponse> GetRelatedTerms([ActionParameter] GetRelatedTermsRequest request)
     {
         var query = new StringBuilder(
             $"/keywords-explorer/related-terms?country={request.Country}" +
@@ -77,6 +77,6 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<TermsResponse>(restRequest);
+        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
     }
 }

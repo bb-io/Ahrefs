@@ -1,7 +1,7 @@
 ﻿using Apps.Ahrefs.Models.Entities;
 using Newtonsoft.Json;
 
-namespace Apps.Ahrefs.Models.Responses.KeywordExplorer;
+namespace Apps.Ahrefs.Models.Responses.SiteExplorer;
 
 public class DomainRatingResponse
 {
