@@ -1,9 +1,7 @@
-﻿using Apps.Ahrefs.Actions;
+﻿using Tests.Ahrefs.Base;
+using Apps.Ahrefs.Actions;
 using Apps.Ahrefs.Models.Requests;
-using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common.Exceptions;
-using Newtonsoft.Json;
-using Tests.Ahrefs.Base;
 
 namespace Tests.Ahrefs;
 
@@ -198,10 +196,5 @@ public class SiteExplorerActionsTests : TestBase
 
         // Act & Assert
         await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetAnchors(request));
-    }
-
-    private static void PrintJsonResult(object result)
-    {
-        Console.WriteLine(JsonConvert.SerializeObject(result, Formatting.Indented));
     }
 }

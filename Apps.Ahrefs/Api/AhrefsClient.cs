@@ -1,15 +1,14 @@
+using RestSharp;
+using System.Text;
+using Newtonsoft.Json;
 using Apps.Ahrefs.Constants;
 using Apps.Ahrefs.Extensions;
 using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
-using Blackbird.Applications.Sdk.Common.Authentication;
-using Blackbird.Applications.Sdk.Common.Exceptions;
-using Blackbird.Applications.Sdk.Utils.Extensions.Sdk;
 using Blackbird.Applications.Sdk.Utils.RestSharp;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
-using System.Text;
+using Blackbird.Applications.Sdk.Utils.Extensions.Sdk;
+using Blackbird.Applications.Sdk.Common.Exceptions;
+using Blackbird.Applications.Sdk.Common.Authentication;
 
 namespace Apps.Ahrefs.Api;
 
@@ -92,6 +91,20 @@ public class AhrefsClient : BlackBirdRestClient
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<AnchorsResponse>(restRequest);
     }
+
+    public async Task<RelatedTermsResponse> GetRelatedTerms(GetRelatedTermsRequest request)
+    {
+        var query = new StringBuilder(
+            $"/keywords-explorer/related-terms?country={request.Country}" +
+            $"&select=keyword,cpc,cps,volume&keywords=wordcount,ahrefs"
+        );
+
+        query.AppendIfNotEmpty("keywords", request.Keywords);
+
+        var restRequest = new RestRequest(query.ToString());
+        return await ExecuteWithErrorHandling<RelatedTermsResponse>(restRequest);
+    }
+
 
     public override async Task<RestResponse> ExecuteWithErrorHandling(RestRequest request)
     {

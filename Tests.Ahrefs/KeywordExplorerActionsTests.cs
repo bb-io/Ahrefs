@@ -1,25 +1,27 @@
 ﻿using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Actions;
 using Apps.Ahrefs.Models.Requests;
-using Apps.Ahrefs.Models.Responses;
 
 namespace Tests.Ahrefs;
 
 [TestClass]
 public class KeywordExplorerActionsTests : TestBase
 {
+    private const string FreeKeywordAhrefs = "ahrefs";
+    private const string FreeKeywordWordcount = "wordcount";
+
     [TestMethod]
     public async Task GetKeywords_CountryAndKeywords_ReturnsKeywords()
     {
 		// Arrange
 		var action = new KeywordExplorerActions(InvocationContext);
-		var request = new GetKeywordsRequest { Country = "us", Keywords = ["ahrefs", "wordcount"] };
+		var request = new GetKeywordsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
 
 		// Act
 		var result = await action.GetKeywords(request);
 
         // Assert
-        PrintKeywords(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
@@ -28,22 +30,28 @@ public class KeywordExplorerActionsTests : TestBase
     {
         // Arrange
         var action = new KeywordExplorerActions(InvocationContext);
-        var request = new GetKeywordsRequest { Country = "us", Keywords = ["ahrefs", "wordcount"], Target = "ahrefs.com" };
+        var request = new GetKeywordsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount], Target = "ahrefs.com" };
 
         // Act
         var result = await action.GetKeywords(request);
 
         // Assert
-        PrintKeywords(result);
+        PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
 
-    private static void PrintKeywords(KeywordsResponse result)
+    [TestMethod]
+    public async Task GetRelatedTerms_CountryAndKeywords_ReturnsRelatedTerms()
     {
-        Console.WriteLine($"Total count: {result.Keywords.Count()}");
-        foreach (var item in result.Keywords)
-        {
-            Console.WriteLine($"{item.Word} - {item.Clicks}");
-        }
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetRelatedTermsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
+
+        // Act
+        var result = await actions.GetRelatedTerms(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
     }
 }
