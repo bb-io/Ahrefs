@@ -79,4 +79,17 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         var restRequest = new RestRequest(query.ToString());
         return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
     }
+
+    [Action("Get search suggestions", Description = "Gets search suggestions of the specified country and keywords")]
+    public async Task<KeywordIdeasResponse> GetSearchSuggestions([ActionParameter] GetSearchSuggestionsRequest request)
+    {
+        var query = new StringBuilder(
+            $"/keywords-explorer/search-suggestions?country={request.Country}" +
+            $"&select=keyword,cpc,cps,volume&keywords=wordcount,ahrefs"
+        );
+        query.AppendIfNotEmpty("keywords", request.Keywords);
+
+        var restRequest = new RestRequest(query.ToString());
+        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+    }
 }

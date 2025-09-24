@@ -155,4 +155,19 @@ public class KeywordExplorerActionsTests : TestBase
         PrintJsonResult(response);
         Assert.IsNotNull(response);
     }
+
+    [TestMethod]
+    public async Task GetSearchSuggestions_ReturnsSearchSuggestions()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetSearchSuggestionsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
+
+        // Act
+        var result = await actions.GetSearchSuggestions(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+    }
 }
