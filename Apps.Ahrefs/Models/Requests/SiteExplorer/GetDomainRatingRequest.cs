@@ -1,8 +1,6 @@
-﻿using Apps.Ahrefs.Handlers.Static;
-using Blackbird.Applications.Sdk.Common;
-using Blackbird.Applications.Sdk.Common.Dictionaries;
+﻿using Blackbird.Applications.Sdk.Common;
 
-namespace Apps.Ahrefs.Models.Requests;
+namespace Apps.Ahrefs.Models.Requests.SiteExplorer;
 
 public class GetDomainRatingRequest
 {

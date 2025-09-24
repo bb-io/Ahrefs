@@ -2,7 +2,7 @@
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dictionaries;
 
-namespace Apps.Ahrefs.Models.Requests;
+namespace Apps.Ahrefs.Models.Requests.KeywordExplorer;
 
 public class GetRelatedTermsRequest
 {

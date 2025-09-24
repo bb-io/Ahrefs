@@ -1,6 +1,6 @@
 ﻿using Apps.Ahrefs.Extensions;
-using Apps.Ahrefs.Models.Requests;
-using Apps.Ahrefs.Models.Responses;
+using Apps.Ahrefs.Models.Requests.KeywordExplorer;
+using Apps.Ahrefs.Models.Responses.SiteExplorer;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Exceptions;

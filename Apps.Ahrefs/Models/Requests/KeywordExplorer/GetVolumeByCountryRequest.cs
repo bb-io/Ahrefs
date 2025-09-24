@@ -1,6 +1,6 @@
 ﻿using Blackbird.Applications.Sdk.Common;
 
-namespace Apps.Ahrefs.Models.Requests;
+namespace Apps.Ahrefs.Models.Requests.KeywordExplorer;
 
 public class GetVolumeByCountryRequest
 {

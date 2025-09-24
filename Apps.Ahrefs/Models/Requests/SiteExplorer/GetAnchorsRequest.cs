@@ -2,9 +2,9 @@
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Dictionaries;
 
-namespace Apps.Ahrefs.Models.Requests;
+namespace Apps.Ahrefs.Models.Requests.SiteExplorer;
 
-public class GetReferringDomainsRequest
+public class GetAnchorsRequest
 {
     [Display("Target", Description = "The target of the search: a domain or a URL")]
     public string Target { get; set; }
