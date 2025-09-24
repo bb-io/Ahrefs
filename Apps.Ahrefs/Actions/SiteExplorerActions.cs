@@ -23,4 +23,11 @@ public class SiteExplorerActions(InvocationContext invocationContext) : Invocabl
         var client = new AhrefsClient(Creds);
         return await client.GetDomainRating(request);
     }
+
+    [Action("Get referred domains", Description = "Get referring domains of the specified target")]
+    public async Task<ReferringDomainsResponse> GetReferringDomains([ActionParameter] GetReferringDomainsRequest request)
+    {
+        var client = new AhrefsClient(Creds);
+        return await client.GetReferringDomains(request);
+    }
 }

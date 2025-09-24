@@ -76,6 +76,23 @@ public class AhrefsClient : BlackBirdRestClient
         return await ExecuteWithErrorHandling<DomainRatingResponse>(restRequest);
     }
 
+    public async Task<ReferringDomainsResponse> GetReferringDomains(GetReferringDomainsRequest request)
+    {
+        var query = new StringBuilder(
+            $"/site-explorer/refdomains?target={request.Target}" +
+            $"&select=domain,dofollow_refdomains,domain_rating,links_to_target,positions_source_domain"
+        );
+
+        if (!string.IsNullOrEmpty(request.Protocol))
+            query.Append($"&protocol={request.Protocol}");
+
+        if (!string.IsNullOrEmpty(request.Mode))
+            query.Append($"&mode={request.Mode}");
+
+        var restRequest = new RestRequest(query.ToString());
+        return await ExecuteWithErrorHandling<ReferringDomainsResponse>(restRequest);
+    }
+
     public override async Task<RestResponse> ExecuteWithErrorHandling(RestRequest request)
     {
         var response = await ExecuteAsync(request);

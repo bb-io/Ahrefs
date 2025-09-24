@@ -16,7 +16,7 @@ public class GetKeywordsRequest
     [Display("Target", Description = "The target of the search: a domain or a URL")]
     public string? Target { get; set; }
 
-    [StaticDataSource(typeof(BacklinksModeStaticHandler))]
+    [StaticDataSource(typeof(ModeStaticHandler))]
     [Display("Target mode", Description = "The scope of the target URL you specified")]
     public string? TargetMode { get; set; }
 }

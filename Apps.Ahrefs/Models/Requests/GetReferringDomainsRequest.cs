@@ -4,16 +4,16 @@ using Blackbird.Applications.Sdk.Common.Dictionaries;
 
 namespace Apps.Ahrefs.Models.Requests;
 
-public class GetBacklinksRequest
+public class GetReferringDomainsRequest
 {
     [Display("Target", Description = "The target of the search: a domain or a URL")]
     public string Target { get; set; }
 
-    [StaticDataSource(typeof(ModeStaticHandler))]
-    [Display("Mode", Description = "The scope of the search based on the target you entered. Default mode is 'Subdomains'")]
-    public string? Mode { get; set; }
-
+    [Display("Protocol", Description = "The protocol of your target")]
     [StaticDataSource(typeof(ProtocolStaticHandler))]
-    [Display("Protocol", Description = "The protocol of your target. Default is 'Both'")]
     public string? Protocol { get; set; }
+
+    [Display("Mode", Description = "The scope of the search based on the target you entered")]
+    [StaticDataSource(typeof(ModeStaticHandler))]
+    public string? Mode { get; set; }
 }

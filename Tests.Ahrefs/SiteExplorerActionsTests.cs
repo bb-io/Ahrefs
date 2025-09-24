@@ -95,12 +95,63 @@ public class SiteExplorerActionsTests : TestBase
         Assert.IsNotNull(result);
     }
 
+    [TestMethod]
+    public async Task GetReferringDomains_TargetOnly_ReturnsReferringDomains()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetReferringDomainsRequest { Target = "ahrefs.com" };
+
+        // Act
+        var result = await actions.GetReferringDomains(request);
+
+        // Assert
+        PrintReferringDomains(result);
+        Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task GetReferringDomains_TargetAndMode_ReturnsReferringDomains()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetReferringDomainsRequest { Target = "ahrefs.com", Mode = "exact" };
+
+        // Act
+        var result = await actions.GetReferringDomains(request);
+
+        // Assert
+        PrintReferringDomains(result);
+        Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task GetReferringDomains_TargetAndModeAndProtocol_ReturnsReferringDomains()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetReferringDomainsRequest { Target = "ahrefs.com", Mode = "exact", Protocol = "http" };
+
+        // Act
+        var result = await actions.GetReferringDomains(request);
+
+        // Assert
+        PrintReferringDomains(result);
+        Assert.IsNotNull(result);
+    }
+
+
     private static void PrintBacklinks(BacklinksResponse result)
     {
-        Console.WriteLine($"Total count: {result.Backlinks.Count()}");
+        Console.WriteLine($"Total count: {result.Backlinks.Count}");
         foreach (var item in result.Backlinks)
-        {
             Console.WriteLine($"{item.Anchor} - {item.UrlTo}");
-        }
+    }
+
+    private static void PrintReferringDomains(ReferringDomainsResponse result)
+    {
+        Console.WriteLine($"Total count: {result.ReferringDomains.Count}");
+        foreach (var item in result.ReferringDomains)
+            Console.WriteLine($"{item.Domain} - {item.LinksToTarget} - {item.DomainRating}");
     }
 }
