@@ -19,7 +19,7 @@ public class SiteExplorerActionsTests : TestBase
         var request = new GetBacklinksRequest { Target = "blackbird.io" };
 
         // Act & Assert
-        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetBacklinks(request));
+        await Assert.ThrowsExactlyAsync<PluginMisconfigurationException>(async () => await actions.GetBacklinks(request));
     }
 
     [TestMethod]
@@ -53,41 +53,11 @@ public class SiteExplorerActionsTests : TestBase
     }
 
     [TestMethod]
-    public async Task GetBacklinks_TargetAndModeAndProtocol_ReturnsBacklinks()
-    {
-        // Arrange
-        var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetBacklinksRequest { Target = FreeTargetWordcountCom, Mode = "exact", Protocol = "http" };
-
-        // Act
-        var result = await actions.GetBacklinks(request);
-
-        // Assert
-        PrintJsonResult(result);
-        Assert.IsNotNull(result);
-    }
-
-    [TestMethod]
-    public async Task GetDomainRating_NoProtocol_ReturnsDomainRating()
+    public async Task GetDomainRating_DatetimeNow_ReturnsDomainRating()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
         var request = new GetDomainRatingRequest { Target = FreeTargetAhrefsCom, Date = DateTime.Now };
-
-        // Act
-        var result = await actions.GetDomainRating(request);
-
-        // Assert
-        PrintJsonResult(result);
-        Assert.IsNotNull(result);
-    }
-
-    [TestMethod]
-    public async Task GetDomainRating_WithProtocol_ReturnsDomainRating()
-    {
-        // Arrange
-        var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetDomainRatingRequest { Target = FreeTargetWordcountCom, Date = DateTime.Now, Protocol = "http" };
 
         // Act
         var result = await actions.GetDomainRating(request);
@@ -128,21 +98,6 @@ public class SiteExplorerActionsTests : TestBase
     }
 
     [TestMethod]
-    public async Task GetReferringDomains_TargetAndModeAndProtocol_ReturnsReferringDomains()
-    {
-        // Arrange
-        var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetReferringDomainsRequest { Target = FreeTargetAhrefsCom, Mode = "exact", Protocol = "http" };
-
-        // Act
-        var result = await actions.GetReferringDomains(request);
-
-        // Assert
-        PrintJsonResult(result);
-        Assert.IsNotNull(result);
-    }
-
-    [TestMethod]
     public async Task GetAnchors_TargetOnly_ReturnsAnchors()
     {
         // Arrange
@@ -171,30 +126,15 @@ public class SiteExplorerActionsTests : TestBase
         PrintJsonResult(result);
         Assert.IsNotNull(result);
     }
-
-    [TestMethod]
-    public async Task GetAnchors_TargetAndModeAndProtocol_ReturnsAnchors()
-    {
-        // Arrange
-        var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAnchorsRequest { Target = FreeTargetAhrefsCom, Mode = "exact", Protocol = "http" };
-
-        // Act
-        var result = await actions.GetAnchors(request);
-
-        // Assert
-        PrintJsonResult(result);
-        Assert.IsNotNull(result);
-    }
     
     [TestMethod]
     public async Task GetAnchors_IncorrectTargetFormat_ThrowsException()
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAnchorsRequest { Target = "incorrect!!!!!", Mode = "exact", Protocol = "http" };
+        var request = new GetAnchorsRequest { Target = "incorrect!!!!!", Mode = "exact" };
 
         // Act & Assert
-        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetAnchors(request));
+        await Assert.ThrowsExactlyAsync<PluginMisconfigurationException>(async () => await actions.GetAnchors(request));
     }
 }

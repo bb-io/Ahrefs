@@ -12,8 +12,4 @@ public class GetAnchorsRequest
     [Display("Mode", Description = "The scope of the search based on the target you entered")]
     [StaticDataSource(typeof(ModeStaticHandler))]
     public string? Mode { get; set; }
-
-    [Display("Protocol", Description = "The protocol of your target")]
-    [StaticDataSource(typeof(ProtocolStaticHandler))]
-    public string? Protocol { get; set; }
 }

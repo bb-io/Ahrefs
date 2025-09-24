@@ -30,7 +30,6 @@ public class AhrefsClient : BlackBirdRestClient
         );
 
         query.AppendIfNotEmpty("mode", request.Mode);
-        query.AppendIfNotEmpty("protocol", request.Protocol);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<BacklinksResponse>(restRequest);
@@ -58,8 +57,6 @@ public class AhrefsClient : BlackBirdRestClient
             $"&date={request.Date:yyyy-MM-dd}"
         );
 
-        query.AppendIfNotEmpty("protocol", request.Protocol);
-
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<DomainRatingResponse>(restRequest);
     }
@@ -71,7 +68,6 @@ public class AhrefsClient : BlackBirdRestClient
             $"&select=domain,dofollow_refdomains,domain_rating,links_to_target,positions_source_domain"
         );
 
-        query.AppendIfNotEmpty("protocol", request.Protocol);
         query.AppendIfNotEmpty("mode", request.Mode);
 
         var restRequest = new RestRequest(query.ToString());
@@ -86,7 +82,6 @@ public class AhrefsClient : BlackBirdRestClient
         );
 
         query.AppendIfNotEmpty("mode", request.Mode);
-        query.AppendIfNotEmpty("protocol", request.Protocol);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<AnchorsResponse>(restRequest);

@@ -11,8 +11,4 @@ public class GetDomainRatingRequest
 
     [Display("Date", Description = "A date to report metrics on")]
     public DateTime Date { get; set; }
-
-    [Display("Protocol", Description = "The protocol of your target")]
-    [StaticDataSource(typeof(ProtocolStaticHandler))]
-    public string? Protocol { get; set; }
 }

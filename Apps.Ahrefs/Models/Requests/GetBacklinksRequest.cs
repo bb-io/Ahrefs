@@ -12,8 +12,4 @@ public class GetBacklinksRequest
     [StaticDataSource(typeof(ModeStaticHandler))]
     [Display("Mode", Description = "The scope of the search based on the target you entered. Default mode is 'Subdomains'")]
     public string? Mode { get; set; }
-
-    [StaticDataSource(typeof(ProtocolStaticHandler))]
-    [Display("Protocol", Description = "The protocol of your target. Default is 'Both'")]
-    public string? Protocol { get; set; }
 }
