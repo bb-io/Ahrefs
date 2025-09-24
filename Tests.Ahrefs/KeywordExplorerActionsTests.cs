@@ -1,6 +1,7 @@
 ﻿using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Actions;
 using Apps.Ahrefs.Models.Requests;
+using Blackbird.Applications.Sdk.Common.Exceptions;
 
 namespace Tests.Ahrefs;
 
@@ -53,5 +54,57 @@ public class KeywordExplorerActionsTests : TestBase
         // Assert
         PrintJsonResult(result);
         Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task GetVolumeHistory_NoDates_ReturnsVolumeHistory()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetVolumeHistoryRequest { Country = "us", Keyword = FreeKeywordAhrefs };
+
+        // Act
+        var result = await actions.GetVolumeHistory(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+    }
+    
+    [TestMethod]
+    public async Task GetVolumeHistory_CorrectDates_ReturnsVolumeHistory()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetVolumeHistoryRequest
+        {
+            Country = "us",
+            Keyword = FreeKeywordAhrefs,
+            DateFrom = new DateTime(2025, 01, 01),
+            DateTo = DateTime.Now,
+        };
+
+        // Act
+        var result = await actions.GetVolumeHistory(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task GetVolumeHistory_IncorrectDates_ThrowsException()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetVolumeHistoryRequest { 
+            Country = "us", 
+            Keyword = FreeKeywordAhrefs, 
+            DateFrom = DateTime.Now, 
+            DateTo = DateTime.Now - TimeSpan.FromDays(1)
+        };
+
+        // Act & Assert
+        await Assert.ThrowsExactlyAsync<PluginMisconfigurationException>(async () => await actions.GetVolumeHistory(request));
     }
 }

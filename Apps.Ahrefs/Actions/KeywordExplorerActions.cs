@@ -3,6 +3,7 @@ using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
+using Blackbird.Applications.Sdk.Common.Exceptions;
 using Blackbird.Applications.Sdk.Common.Invocation;
 using RestSharp;
 using System.Text;
@@ -26,6 +27,23 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
 
         var restRequest = new RestRequest(query.ToString());
         return await Client.ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
+    }
+
+    [Action("Get volume history", Description = "Gets a volume history of the specified country, time period and keywords")]
+    public async Task<VolumeHistoryResponse> GetVolumeHistory([ActionParameter] GetVolumeHistoryRequest request)
+    {
+        if (request.DateFrom != null && request.DateTo != null)
+        {
+            if (request.DateFrom > request.DateTo)
+                throw new PluginMisconfigurationException("Invalid date range");
+        }
+
+        var query = new StringBuilder($"/keywords-explorer/volume-history?keyword={request.Keyword}&country={request.Country}");
+        query.AppendIfNotEmpty("date_to", $"{request.DateTo:yyyy-MM-dd}");
+        query.AppendIfNotEmpty("date_from", $"{request.DateFrom:yyyy-MM-dd}");
+
+        var restRequest = new RestRequest(query.ToString());
+        return await Client.ExecuteWithErrorHandling<VolumeHistoryResponse>(restRequest);
     }
 
     [Action("Get related terms", Description = "Gets related terms of the specified country and keywords")]
