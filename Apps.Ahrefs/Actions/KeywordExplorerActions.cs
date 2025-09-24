@@ -46,6 +46,15 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<VolumeHistoryResponse>(restRequest);
     }
 
+    [Action("Get volume by country", Description = "Gets a volume of the specified keyword by country")]
+    public async Task<VolumeByCountryResponse> GetVolumeByCountry([ActionParameter] GetVolumeByCountryRequest request)
+    {
+        string query = $"/keywords-explorer/volume-by-country?keyword={request.Keyword}&limit={request.Limit}";
+
+        var restRequest = new RestRequest(query);
+        return await Client.ExecuteWithErrorHandling<VolumeByCountryResponse>(restRequest);
+    }
+
     [Action("Get related terms", Description = "Gets related terms of the specified country and keywords")]
     public async Task<RelatedTermsResponse> GetRelatedTerms([ActionParameter] GetRelatedTermsRequest request)
     {

@@ -107,4 +107,37 @@ public class KeywordExplorerActionsTests : TestBase
         // Act & Assert
         await Assert.ThrowsExactlyAsync<PluginMisconfigurationException>(async () => await actions.GetVolumeHistory(request));
     }
+
+    [TestMethod]
+    public async Task GetVolumeByCountry_WithLimit_ReturnsCountries()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        int limit = 50;
+        var request = new GetVolumeByCountryRequest { Keyword = FreeKeywordAhrefs, Limit = limit };
+
+        // Act
+        var result = await actions.GetVolumeByCountry(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(limit, result.VolumeByCountry.Count);
+    }
+
+    [TestMethod]
+    public async Task GetVolumeByCountry_WithNoLimit_ReturnsCountries()
+    {
+        // Arrange
+        var actions = new KeywordExplorerActions(InvocationContext);
+        var request = new GetVolumeByCountryRequest { Keyword = FreeKeywordAhrefs };
+
+        // Act
+        var result = await actions.GetVolumeByCountry(request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(20, result.VolumeByCountry.Count);
+    }
 }
