@@ -111,12 +111,14 @@ public class AhrefsClient : BlackBirdRestClient
 
     protected override Exception ConfigureErrorException(RestResponse response)
     {
-        var responseContent = response.Content;
+        var responseContent = response.Content!;
 
         if (responseContent.Contains("Insufficient plan"))
             throw new PluginMisconfigurationException("Your Ahrefs plan does not support this action");
 
-        var errorMessage = JArray.Parse(response.Content)[0].ToString();
-        throw new PluginApplicationException(errorMessage);
+        if (responseContent.Contains("bad target: "))
+            throw new PluginMisconfigurationException("Incorrect target format");
+
+        throw new PluginApplicationException(responseContent);
     }
 }

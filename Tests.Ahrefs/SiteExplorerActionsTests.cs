@@ -10,6 +10,9 @@ namespace Tests.Ahrefs;
 [TestClass]
 public class SiteExplorerActionsTests : TestBase
 {
+    private const string FreeTargetAhrefsCom = "ahrefs.com";
+    private const string FreeTargetWordcountCom = "wordcount.com";
+
     [TestMethod]
     public async Task GetBacklinks_InsufficientPlan_ThrowsException()
     {
@@ -26,7 +29,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetBacklinksRequest { Target = "wordcount.com" };
+        var request = new GetBacklinksRequest { Target = FreeTargetWordcountCom };
 
         // Act
         var result = await actions.GetBacklinks(request);
@@ -41,7 +44,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetBacklinksRequest { Target = "wordcount.com", Mode = "exact" };
+        var request = new GetBacklinksRequest { Target = FreeTargetWordcountCom, Mode = "exact" };
 
         // Act
         var result = await actions.GetBacklinks(request);
@@ -56,7 +59,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetBacklinksRequest { Target = "wordcount.com", Mode = "exact", Protocol = "http" };
+        var request = new GetBacklinksRequest { Target = FreeTargetWordcountCom, Mode = "exact", Protocol = "http" };
 
         // Act
         var result = await actions.GetBacklinks(request);
@@ -71,7 +74,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetDomainRatingRequest { Target = "ahrefs.com", Date = DateTime.Now };
+        var request = new GetDomainRatingRequest { Target = FreeTargetAhrefsCom, Date = DateTime.Now };
 
         // Act
         var result = await actions.GetDomainRating(request);
@@ -86,7 +89,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetDomainRatingRequest { Target = "wordcount.com", Date = DateTime.Now, Protocol = "http" };
+        var request = new GetDomainRatingRequest { Target = FreeTargetWordcountCom, Date = DateTime.Now, Protocol = "http" };
 
         // Act
         var result = await actions.GetDomainRating(request);
@@ -101,7 +104,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetReferringDomainsRequest { Target = "ahrefs.com" };
+        var request = new GetReferringDomainsRequest { Target = FreeTargetAhrefsCom };
 
         // Act
         var result = await actions.GetReferringDomains(request);
@@ -116,7 +119,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetReferringDomainsRequest { Target = "ahrefs.com", Mode = "exact" };
+        var request = new GetReferringDomainsRequest { Target = FreeTargetAhrefsCom, Mode = "exact" };
 
         // Act
         var result = await actions.GetReferringDomains(request);
@@ -131,7 +134,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetReferringDomainsRequest { Target = "ahrefs.com", Mode = "exact", Protocol = "http" };
+        var request = new GetReferringDomainsRequest { Target = FreeTargetAhrefsCom, Mode = "exact", Protocol = "http" };
 
         // Act
         var result = await actions.GetReferringDomains(request);
@@ -146,7 +149,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAnchorsRequest { Target = "ahrefs.com" };
+        var request = new GetAnchorsRequest { Target = FreeTargetAhrefsCom };
 
         // Act
         var result = await actions.GetAnchors(request);
@@ -161,7 +164,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAnchorsRequest { Target = "ahrefs.com", Mode = "exact" };
+        var request = new GetAnchorsRequest { Target = FreeTargetAhrefsCom, Mode = "exact" };
 
         // Act
         var result = await actions.GetAnchors(request);
@@ -176,7 +179,7 @@ public class SiteExplorerActionsTests : TestBase
     {
         // Arrange
         var actions = new SiteExplorerActions(InvocationContext);
-        var request = new GetAnchorsRequest { Target = "ahrefs.com", Mode = "exact", Protocol = "http" };
+        var request = new GetAnchorsRequest { Target = FreeTargetAhrefsCom, Mode = "exact", Protocol = "http" };
 
         // Act
         var result = await actions.GetAnchors(request);
@@ -184,6 +187,17 @@ public class SiteExplorerActionsTests : TestBase
         // Assert
         PrintJsonResult(result);
         Assert.IsNotNull(result);
+    }
+    
+    [TestMethod]
+    public async Task GetAnchors_IncorrectTargetFormat_ThrowsException()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetAnchorsRequest { Target = "incorrect!!!!!", Mode = "exact", Protocol = "http" };
+
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<PluginMisconfigurationException>(async () => await actions.GetAnchors(request));
     }
 
     private static void PrintJsonResult(object result)
