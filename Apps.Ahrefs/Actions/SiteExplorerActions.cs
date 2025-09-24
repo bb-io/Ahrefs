@@ -16,4 +16,11 @@ public class SiteExplorerActions(InvocationContext invocationContext) : Invocabl
         var client = new AhrefsClient(Creds);
         return await client.GetBacklinks(request);
     }
+
+    [Action("Get domain rating", Description = "Gets domain rating of the specified target for specific date")]
+    public async Task<DomainRatingResponse> GetDomainRating([ActionParameter] GetDomainRatingRequest request)
+    {
+        var client = new AhrefsClient(Creds);
+        return await client.GetDomainRating(request);
+    }
 }

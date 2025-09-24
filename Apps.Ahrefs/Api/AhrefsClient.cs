@@ -60,7 +60,21 @@ public class AhrefsClient : BlackBirdRestClient
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
-    } 
+    }
+
+    public async Task<DomainRatingResponse> GetDomainRating(GetDomainRatingRequest request)
+    {
+        var query = new StringBuilder(
+            $"/site-explorer/domain-rating?target={request.Target}" +
+            $"&date={request.Date:yyyy-MM-dd}"
+        );
+
+        if (!string.IsNullOrEmpty(request.Protocol))
+            query.Append($"&protocol={request.Protocol}");
+
+        var restRequest = new RestRequest(query.ToString());
+        return await ExecuteWithErrorHandling<DomainRatingResponse>(restRequest);
+    }
 
     public override async Task<RestResponse> ExecuteWithErrorHandling(RestRequest request)
     {

@@ -3,7 +3,7 @@ using Blackbird.Applications.Sdk.Common.Dynamic;
 
 namespace Apps.Ahrefs.Handlers.Static;
 
-public class BacklinksProtocolStaticHandler : IStaticDataSourceItemHandler
+public class ProtocolStaticHandler : IStaticDataSourceItemHandler
 {
     public IEnumerable<DataSourceItem> GetData()
     {

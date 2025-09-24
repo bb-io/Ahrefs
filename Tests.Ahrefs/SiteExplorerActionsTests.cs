@@ -65,6 +65,36 @@ public class SiteExplorerActionsTests : TestBase
         Assert.IsNotNull(result);
     }
 
+    [TestMethod]
+    public async Task GetDomainRating_NoProtocol_ReturnsDomainRating()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetDomainRatingRequest { Target = "ahrefs.com", Date = DateTime.Now };
+
+        // Act
+        var result = await actions.GetDomainRating(request);
+
+        // Assert
+        Console.WriteLine($"{result.DomainRating.Rating} - {result.DomainRating.Rank}");
+        Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task GetDomainRating_WithProtocol_ReturnsDomainRating()
+    {
+        // Arrange
+        var actions = new SiteExplorerActions(InvocationContext);
+        var request = new GetDomainRatingRequest { Target = "wordcount.com", Date = DateTime.Now, Protocol = "http" };
+
+        // Act
+        var result = await actions.GetDomainRating(request);
+
+        // Assert
+        Console.WriteLine($"{result.DomainRating.Rating} - {result.DomainRating.Rank}");
+        Assert.IsNotNull(result);
+    }
+
     private static void PrintBacklinks(BacklinksResponse result)
     {
         Console.WriteLine($"Total count: {result.Backlinks.Count()}");
