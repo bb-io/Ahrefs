@@ -1,5 +1,4 @@
-﻿using Apps.Ahrefs.Api;
-using Apps.Ahrefs.Models.Requests;
+﻿using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
@@ -13,14 +12,12 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
     [Action("Get keywords", Description = "Gets a keyword overview of the specified target, country and keywords")]
     public async Task<KeywordsResponse> GetKeywords([ActionParameter] GetKeywordsRequest request)
     {
-        var client = new AhrefsClient(Creds);
-        return await client.GetKeywords(request);
+        return await Client.GetKeywords(request);
     }
 
     [Action("Get related terms", Description = "Gets related terms of the specified country and keywords")]
     public async Task<RelatedTermsResponse> GetRelatedTerms([ActionParameter] GetRelatedTermsRequest request)
     {
-        var client = new AhrefsClient(Creds);
-        return await client.GetRelatedTerms(request);
+        return await Client.GetRelatedTerms(request);
     }
 }
