@@ -1,4 +1,5 @@
 using Apps.Ahrefs.Constants;
+using Apps.Ahrefs.Extensions;
 using Apps.Ahrefs.Models.Requests;
 using Apps.Ahrefs.Models.Responses;
 using Blackbird.Applications.Sdk.Common.Authentication;
@@ -29,11 +30,8 @@ public class AhrefsClient : BlackBirdRestClient
             "select=anchor,domain_rating_target,domain_rating_source,positions,name_source,url_from,url_to"
         );
 
-        if (!string.IsNullOrEmpty(request.Mode))
-            query.Append($"&mode={request.Mode}");
-
-        if (!string.IsNullOrEmpty(request.Protocol))
-            query.Append($"&protocol={request.Protocol}");
+        query.AppendIfNotEmpty("mode", request.Mode);
+        query.AppendIfNotEmpty("protocol", request.Protocol);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<BacklinksResponse>(restRequest);
@@ -46,17 +44,9 @@ public class AhrefsClient : BlackBirdRestClient
             $"select=keyword,clicks,cpc,cps"
         );
 
-        if (request.Keywords != null && request.Keywords.Any())
-        {
-            string keywords = string.Join(",", request.Keywords);
-            query.Append($"&keywords={keywords}");
-        }
-
-        if (!string.IsNullOrEmpty(request.TargetMode))
-            query.Append($"&target_mode={request.TargetMode}");
-
-        if (!string.IsNullOrEmpty(request.Target))
-            query.Append($"&target={request.Target}");
+        query.AppendIfNotEmpty("keywords", request.Keywords);
+        query.AppendIfNotEmpty("target_mode", request.TargetMode);
+        query.AppendIfNotEmpty("target", request.Target);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
@@ -69,8 +59,7 @@ public class AhrefsClient : BlackBirdRestClient
             $"&date={request.Date:yyyy-MM-dd}"
         );
 
-        if (!string.IsNullOrEmpty(request.Protocol))
-            query.Append($"&protocol={request.Protocol}");
+        query.AppendIfNotEmpty("protocol", request.Protocol);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<DomainRatingResponse>(restRequest);
@@ -83,11 +72,8 @@ public class AhrefsClient : BlackBirdRestClient
             $"&select=domain,dofollow_refdomains,domain_rating,links_to_target,positions_source_domain"
         );
 
-        if (!string.IsNullOrEmpty(request.Protocol))
-            query.Append($"&protocol={request.Protocol}");
-
-        if (!string.IsNullOrEmpty(request.Mode))
-            query.Append($"&mode={request.Mode}");
+        query.AppendIfNotEmpty("protocol", request.Protocol);
+        query.AppendIfNotEmpty("mode", request.Mode);
 
         var restRequest = new RestRequest(query.ToString());
         return await ExecuteWithErrorHandling<ReferringDomainsResponse>(restRequest);
