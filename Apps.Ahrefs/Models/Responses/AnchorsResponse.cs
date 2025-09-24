@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Apps.Ahrefs.Models.Entities;
+using Newtonsoft.Json;
 
 namespace Apps.Ahrefs.Models.Responses;
 

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Blackbird.Applications.Sdk.Common;
 
-namespace Apps.Ahrefs.Models;
+namespace Apps.Ahrefs.Models.Entities;
 
 public class Keyword
 {

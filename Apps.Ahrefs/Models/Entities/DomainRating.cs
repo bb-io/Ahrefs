@@ -1,7 +1,7 @@
 ﻿using Blackbird.Applications.Sdk.Common;
 using Newtonsoft.Json;
 
-namespace Apps.Ahrefs.Models;
+namespace Apps.Ahrefs.Models.Entities;
 
 public class DomainRating
 {
