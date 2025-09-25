@@ -5,7 +5,8 @@ namespace Apps.Ahrefs.Models.Entities;
 
 public class KeywordIdea
 {
-    [Display("keyword")]
+    [JsonProperty("keyword")]
+    [Display("Keyword")]
     public string Keyword { get; set; }
 
     [JsonProperty("cpc")]
@@ -19,4 +20,8 @@ public class KeywordIdea
     [JsonProperty("volume")]
     [Display("Volume")]
     public int? Volume { get; set; }
+
+    [JsonProperty("first_seen")]
+    [Display("First seen")]
+    public DateTime? FirstSeen { get; set; }
 }

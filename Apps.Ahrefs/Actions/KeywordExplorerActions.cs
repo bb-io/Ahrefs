@@ -59,7 +59,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
     {
         var query = new StringBuilder(
             $"/keywords-explorer/matching-terms?country={request.Country}" +
-            $"&select=keyword,cpc,cps,volume"
+            $"&select=keyword,cpc,cps,volume,first_seen"
         );
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
@@ -72,7 +72,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
     {
         var query = new StringBuilder(
             $"/keywords-explorer/related-terms?country={request.Country}" +
-            $"&select=keyword,cpc,cps,volume&keywords=wordcount,ahrefs"
+            $"&select=keyword,cpc,cps,volume,first_seen"
         );
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
@@ -85,7 +85,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
     {
         var query = new StringBuilder(
             $"/keywords-explorer/search-suggestions?country={request.Country}" +
-            $"&select=keyword,cpc,cps,volume&keywords=wordcount,ahrefs"
+            $"&select=keyword,cpc,cps,volume,first_seen"
         );
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
