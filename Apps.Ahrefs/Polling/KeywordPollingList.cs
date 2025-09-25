@@ -19,7 +19,7 @@ public class KeywordPollingList(InvocationContext invocationContext) : Invocable
     )
     {
         if (pollingRequest.Memory is null)
-            DontFlyBird();
+            return DontFlyBird();
 
         var query = new StringBuilder(
             $"/keywords-explorer/search-suggestions?country={suggestionsRequest.Country}" +
@@ -32,7 +32,7 @@ public class KeywordPollingList(InvocationContext invocationContext) : Invocable
         var result = await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(request);
 
         if (!result.Keywords.Any())
-            DontFlyBird();
+            return DontFlyBird();
 
         return new()
         {
