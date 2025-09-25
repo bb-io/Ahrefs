@@ -54,7 +54,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<VolumeByCountryResponse>(restRequest);
     }
 
-    [Action("Get mathing terms", Description = "Gets matching terms of the specified country and keywords")]
+    [Action("Get matching terms", Description = "Gets matching terms of the specified country and keywords")]
     public async Task<KeywordIdeasResponse> GetMatchingTerms([ActionParameter] GetMatchingTermsRequest request)
     {
         var query = new StringBuilder(

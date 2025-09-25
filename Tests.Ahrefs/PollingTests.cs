@@ -1,6 +1,7 @@
 ﻿using Tests.Ahrefs.Base;
 using Apps.Ahrefs.Polling;
 using Apps.Ahrefs.Polling.Models;
+using Apps.Ahrefs.Models.Requests.SiteExplorer;
 using Apps.Ahrefs.Models.Requests.KeywordExplorer;
 using Blackbird.Applications.Sdk.Common.Polling;
 
@@ -71,5 +72,67 @@ public class PollingTests : TestBase
         // Assert
         PrintJsonResult(result.Result!);
         Assert.IsNotNull(result);
+    }
+
+    [TestMethod]
+    public async Task OnTrackedKeywordRankingDrop_WithMemoryAndWithDrop_ReturnsKeywordRanking()
+    {
+        // Arrange
+        var polling = new KeywordPollingList(InvocationContext);
+        var memory = new PollingEventRequest<PollingMemory>
+        {
+            Memory = new PollingMemory { LastPollingTime = DateTime.UtcNow - TimeSpan.FromDays(3) },
+            PollingTime = DateTime.UtcNow,
+        };
+        var request = new GetKeywordHistoryRequest { Target = "ahrefs.com" };
+
+        // Act
+        var result = await polling.OnTrackedKeywordRankingDrop(memory, request);
+
+        // Assert
+        Assert.IsNotNull(result.Result);
+        PrintJsonResult(result.Result);
+    }
+    
+    [TestMethod]
+    public async Task OnTrackedKeywordRankingDrop_WithMemoryAndWithoutDrop_ReturnsNewPollingMemory()
+    {
+        // Arrange
+        var polling = new KeywordPollingList(InvocationContext);
+        var memory = new PollingEventRequest<PollingMemory>
+        {
+            Memory = new PollingMemory { LastPollingTime = new DateTime(2025, 09, 01, 12, 0, 0) },
+            PollingTime = new DateTime(2025, 09, 02, 12, 0, 0),
+        };
+        var request = new GetKeywordHistoryRequest { Target = "ahrefs.com" };
+
+        // Act
+        var result = await polling.OnTrackedKeywordRankingDrop(memory, request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsNull(result.Result);
+    }
+    
+    [TestMethod]
+    public async Task OnTrackedKeywordRankingDrop_WithNoDrop_ReturnsNewPollingMemory()
+    {
+        // Arrange
+        var polling = new KeywordPollingList(InvocationContext);
+        var memory = new PollingEventRequest<PollingMemory>
+        {
+            Memory = null,
+            PollingTime = DateTime.UtcNow,
+        };
+        var request = new GetKeywordHistoryRequest { Target = "ahrefs.com" };
+
+        // Act
+        var result = await polling.OnTrackedKeywordRankingDrop(memory, request);
+
+        // Assert
+        PrintJsonResult(result);
+        Assert.IsFalse(result.FlyBird);
+        Assert.IsNotNull(result.Memory);
+        Assert.IsNull(result.Result);
     }
 }
