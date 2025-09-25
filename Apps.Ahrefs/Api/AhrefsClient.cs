@@ -1,6 +1,7 @@
 using RestSharp;
 using Newtonsoft.Json;
 using Apps.Ahrefs.Constants;
+using Apps.Ahrefs.Models.Utility;
 using Blackbird.Applications.Sdk.Utils.RestSharp;
 using Blackbird.Applications.Sdk.Utils.Extensions.Sdk;
 using Blackbird.Applications.Sdk.Common.Exceptions;
@@ -30,8 +31,20 @@ public class AhrefsClient : BlackBirdRestClient
 
     public override async Task<T> ExecuteWithErrorHandling<T>(RestRequest request)
     {
-        var response = await ExecuteWithErrorHandling(request);
-        return JsonConvert.DeserializeObject<T>(response.Content, JsonSettings);
+        var restResponse = await ExecuteWithErrorHandling(request);
+        var result = JsonConvert.DeserializeObject<T>(restResponse.Content, JsonSettings);
+
+        if (result is UnitsResponse unitsResponse)
+            GetUnitsFromHeader(unitsResponse, restResponse);
+
+        return result;
+    }
+
+    private static void GetUnitsFromHeader(UnitsResponse unitsResponse, RestResponse restResponse)
+    {
+        var header = restResponse.Headers.FirstOrDefault(h => h.Name == "x-api-units-cost-total-actual");
+        if (header != null && int.TryParse(header.Value?.ToString(), out var units))
+            unitsResponse.ConsumedUnits = units;
     }
 
     protected override Exception ConfigureErrorException(RestResponse response)
