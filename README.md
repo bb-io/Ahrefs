@@ -23,7 +23,7 @@ If you have a Starter plan, some queries may not be available. In such cases, yo
 
 1. Navigate to apps and search for Ahrefs.
 2. Click _Add Connection_.
-3. Name your connection for future reference e.g. 'My Phrase connection'.
+3. Name your connection for future reference e.g. 'My Ahrefs connection'.
 4. Fill in the _API Key_ that you copied from Ahrefs.
 5. Click _Connect_ and wait for the process to complete.
 6. Confirm that the connection has appeared and the status is _Connected_.

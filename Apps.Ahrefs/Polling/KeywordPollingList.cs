@@ -14,7 +14,7 @@ namespace Apps.Ahrefs.Polling;
 [PollingEventList("Keywords")]
 public class KeywordPollingList(InvocationContext invocationContext) : Invocable(invocationContext)
 {
-    [PollingEvent("On new suggested keyword", Description = "On new suggested keyword")]
+    [PollingEvent("On new suggested keyword", Description = "Triggers whenever new suggested keywords appear")]
     public async Task<PollingEventResponse<PollingMemory, KeywordIdeasResponse>> OnNewSuggestedKeyword(
         PollingEventRequest<PollingMemory> pollingRequest,
         [PollingEventParameter] GetSearchSuggestionsRequest suggestionsRequest
@@ -44,7 +44,7 @@ public class KeywordPollingList(InvocationContext invocationContext) : Invocable
         };
     }
 
-    [PollingEvent("On tracked keyword ranking drop", Description = "On tracked keyword ranking drop")]
+    [PollingEvent("On tracked keyword ranking drop", Description = "Triggers whenever a tracking keyword drops in rank")]
     public async Task<PollingEventResponse<PollingMemory, KeywordHistoryResponse>> OnTrackedKeywordRankingDrop(
         PollingEventRequest<PollingMemory> pollingRequest,
         [PollingEventParameter] GetKeywordHistoryRequest keywordHistoryRequest
