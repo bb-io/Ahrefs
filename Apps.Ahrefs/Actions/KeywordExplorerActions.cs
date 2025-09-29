@@ -13,7 +13,7 @@ namespace Apps.Ahrefs.Actions;
 [ActionList("Keyword explorer")]
 public class KeywordExplorerActions(InvocationContext invocationContext) : Invocable(invocationContext)
 {
-    [Action("Get keywords", Description = "Gets a keyword overview of the specified target, country and keywords")]
+    [Action("Get keywords", Description = "Gets a keyword overview for the specified target, country and keywords")]
     public async Task<KeywordsResponse> GetKeywords([ActionParameter] GetKeywordsRequest request)
     {
         var query = new StringBuilder(
@@ -28,7 +28,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
     }
 
-    [Action("Get volume history", Description = "Gets a volume history of the specified country, time period and keywords")]
+    [Action("Get volume history", Description = "Gets volume history for the specified country, time period and keywords")]
     public async Task<VolumeHistoryResponse> GetVolumeHistory([ActionParameter] GetVolumeHistoryRequest request)
     {
         if (request.DateFrom != null && request.DateTo != null)
@@ -45,7 +45,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<VolumeHistoryResponse>(restRequest);
     }
 
-    [Action("Get volume by country", Description = "Gets a volume of the specified keyword by country")]
+    [Action("Get volume by country", Description = "Gets the volume of the specified keyword by country")]
     public async Task<VolumeByCountryResponse> GetVolumeByCountry([ActionParameter] GetVolumeByCountryRequest request)
     {
         string query = $"/keywords-explorer/volume-by-country?keyword={request.Keyword}&limit={request.Limit}";
@@ -54,7 +54,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<VolumeByCountryResponse>(restRequest);
     }
 
-    [Action("Get matching terms", Description = "Gets matching terms of the specified country and keywords")]
+    [Action("Get matching terms", Description = "Gets matching terms for the specified country and keywords")]
     public async Task<KeywordIdeasResponse> GetMatchingTerms([ActionParameter] GetMatchingTermsRequest request)
     {
         var query = new StringBuilder(
@@ -67,7 +67,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
     }
 
-    [Action("Get related terms", Description = "Gets related terms of the specified country and keywords")]
+    [Action("Get related terms", Description = "Gets related terms for the specified country and keywords")]
     public async Task<KeywordIdeasResponse> GetRelatedTerms([ActionParameter] GetRelatedTermsRequest request)
     {
         var query = new StringBuilder(
@@ -80,7 +80,7 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
     }  
         
-    [Action("Get search suggestions", Description = "Gets search suggestions of the specified country and keywords")]
+    [Action("Get search suggestions", Description = "Gets search suggestions for the specified country and keywords")]
     public async Task<KeywordIdeasResponse> GetSearchSuggestions([ActionParameter] GetSearchSuggestionsRequest request)
     {
         var query = new StringBuilder(

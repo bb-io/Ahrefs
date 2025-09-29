@@ -12,7 +12,7 @@ namespace Apps.Ahrefs.Actions;
 [ActionList("Site explorer")]
 public class SiteExplorerActions(InvocationContext invocationContext) : Invocable(invocationContext)
 {
-    [Action("Get backlinks", Description = "Gets all backlinks of the specified target")]
+    [Action("Get backlinks", Description = "Gets all backlinks for the specified target")]
     public async Task<BacklinksResponse> GetBacklinks([ActionParameter] GetBacklinksRequest request)
     {
         var query = new StringBuilder(
@@ -26,7 +26,7 @@ public class SiteExplorerActions(InvocationContext invocationContext) : Invocabl
         return await Client.ExecuteWithErrorHandling<BacklinksResponse>(restRequest);
     }
 
-    [Action("Get domain rating", Description = "Gets domain rating of the specified target for specific date")]
+    [Action("Get domain rating", Description = "Gets the domain rating of the specified target for a specific date")]
     public async Task<DomainRatingResponse> GetDomainRating([ActionParameter] GetDomainRatingRequest request)
     {
         var query = new StringBuilder(
@@ -38,7 +38,7 @@ public class SiteExplorerActions(InvocationContext invocationContext) : Invocabl
         return await Client.ExecuteWithErrorHandling<DomainRatingResponse>(restRequest);
     }
 
-    [Action("Get referred domains", Description = "Gets referring domains of the specified target")]
+    [Action("Get referred domains", Description = "Gets referring domains for the specified target")]
     public async Task<ReferringDomainsResponse> GetReferringDomains([ActionParameter] GetReferringDomainsRequest request)
     {
         var query = new StringBuilder(
@@ -52,7 +52,7 @@ public class SiteExplorerActions(InvocationContext invocationContext) : Invocabl
         return await Client.ExecuteWithErrorHandling<ReferringDomainsResponse>(restRequest);
     }
 
-    [Action("Get anchors", Description = "Gets anchors of the specified target")]
+    [Action("Get anchors", Description = "Gets anchors for the specified target")]
     public async Task<AnchorsResponse> GetAnchors([ActionParameter] GetAnchorsRequest request)
     {
         var query = new StringBuilder(
