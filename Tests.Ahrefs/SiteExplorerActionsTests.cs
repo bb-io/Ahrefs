@@ -19,7 +19,7 @@ public class SiteExplorerActionsTests : TestBase
         var request = new GetBacklinksRequest { Target = "blackbird.io" };
 
         // Act & Assert
-        await Assert.ThrowsExactlyAsync<PluginMisconfigurationException>(async () => await actions.GetBacklinks(request));
+        await Assert.ThrowsExactlyAsync<PluginApplicationException>(async () => await actions.GetBacklinks(request));
     }
 
     [TestMethod]

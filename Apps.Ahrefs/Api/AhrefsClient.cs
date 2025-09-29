@@ -16,7 +16,7 @@ public class AhrefsClient : BlackBirdRestClient
         BaseUrl = new Uri("https://api.ahrefs.com/v3"),
     })
     {
-        this.AddDefaultHeader("Authorization", creds.Get(CredsNames.ApiKey).Value);
+        this.AddDefaultHeader("Authorization", "Bearer " + creds.Get(CredsNames.ApiKey).Value);
     }
 
     public override async Task<RestResponse> ExecuteWithErrorHandling(RestRequest request)
