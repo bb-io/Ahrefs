@@ -15,6 +15,9 @@ Before you can connect you need to make sure that:
 - You have an active Ahrefs account to connect.
 - In Ahrefs, go to your organization name (top-right corner) > Account settings > API keys, and click Generate API key if you don't already have one.
 
+## Plan limitations
+
+If you have a Starter plan, some queries may not be available. In such cases, you might receive the error message: "Your Ahrefs plan does not support this action." To access all features, consider upgrading to a higher-tier plan: https://ahrefs.com/pricing
 
 ## Connecting
 
@@ -42,6 +45,11 @@ Before you can connect you need to make sure that:
 - **Get matching terms** Gets matching terms for the specified country and keywords.
 - **Get related terms** Gets related terms for the specified country and keywords.
 - **Get search suggestions** Gets search suggestions for the specified country and keywords.
+
+## Events
+
+- **On new suggested keyword** Triggers whenever new suggested keywords appear.
+- **On tracked keyword ranking drop** Triggers whenever a tracking keyword drops in rank. 
 
 ## Feedback
 
