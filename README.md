@@ -28,6 +28,8 @@ If you have a Starter plan, some queries may not be available. In such cases, yo
 5. Click _Connect_ and wait for the process to complete.
 6. Confirm that the connection has appeared and the status is _Connected_.
 
+![AhrefsBlackbirdConnection](image/README/AhrefsBlackbirdConnection.png)
+
 ## Actions
 
 ### Site explorer
