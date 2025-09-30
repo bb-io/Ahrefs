@@ -1,4 +1,4 @@
-# Blackbird.io Appname
+# Blackbird.io Ahrefs
 
 Blackbird is the new automation backbone for the language technology industry. Blackbird provides enterprise-scale automation and orchestration with a simple no-code/low-code platform. Blackbird enables ambitious organizations to identify, vet and automate as many processes as possible. Not just localization workflows, but any business and IT process. This repository represents an application that is deployable on Blackbird and usable inside the workflow editor.
 
@@ -6,7 +6,52 @@ Blackbird is the new automation backbone for the language technology industry. B
 
 <!-- begin docs -->
 
-Documentation coming soon.
+Ahrefs is an SEO software suite that contains tools for link building, keyword research, competitor analysis, rank tracking and site audits. Most of the features inside Ahrefs are designed for marketing professionals.
+
+## Before setting up
+
+Before you can connect you need to make sure that:
+
+- You have an active Ahrefs account to connect.
+- In Ahrefs, go to your organization name (top-right corner) > Account settings > API keys, and click Generate API key if you don't already have one.
+
+## Plan limitations
+
+If you have a Starter plan, some queries may not be available. In such cases, you might receive the error message: "Your Ahrefs plan does not support this action." To access all features, consider upgrading to a higher-tier plan: https://ahrefs.com/pricing
+
+## Connecting
+
+1. Navigate to apps and search for Ahrefs.
+2. Click _Add Connection_.
+3. Name your connection for future reference e.g. 'My Ahrefs connection'.
+4. Fill in the _API Key_ that you copied from Ahrefs.
+5. Click _Connect_ and wait for the process to complete.
+6. Confirm that the connection has appeared and the status is _Connected_.
+
+![AhrefsBlackbirdConnection](Apps.Ahrefs/image/README/AhrefsBlackbirdConnection.png)
+
+## Actions
+
+### Site explorer
+
+- **Get backlinks** Gets all backlinks for the specified target.
+- **Get domain rating** Gets the domain rating of the specified target for a specific date.
+- **Get referred domains** Gets referring domains for the specified target.
+- **Get anchors** Gets anchors for the specified target.
+
+### Keyword explorer
+
+- **Get keywords** Gets a keyword overview for the specified target, country and keywords.
+- **Get volume history** Gets volume history for the specified country, time period and keywords.
+- **Get volume by country** Gets the volume of the specified keyword by country.
+- **Get matching terms** Gets matching terms for the specified country and keywords.
+- **Get related terms** Gets related terms for the specified country and keywords.
+- **Get search suggestions** Gets search suggestions for the specified country and keywords.
+
+## Events
+
+- **On new suggested keyword** Triggers whenever new suggested keywords appear.
+- **On tracked keyword ranking drop** Triggers whenever a tracking keyword drops in rank. 
 
 ## Feedback
 
