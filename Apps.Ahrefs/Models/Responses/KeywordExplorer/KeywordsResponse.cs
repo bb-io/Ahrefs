@@ -10,4 +10,7 @@ public class KeywordsResponse : UnitsResponse
     [JsonProperty("keywords")]
     [Display("Keywords")]
     public List<Keyword> Keywords { get; set; }
+
+    [Display("All words")]
+    public string AllKeywords => string.Join(", ", Keywords.Select(x => x.Word));
 }
