@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Apps.Ahrefs.Models.Entities;
 using Apps.Ahrefs.Models.Utility;
-using Apps.Ahrefs.Models.Entities;
 using Blackbird.Applications.Sdk.Common;
+using Blackbird.Applications.Sdk.Common.Files;
+using Newtonsoft.Json;
 
 namespace Apps.Ahrefs.Models.Responses.KeywordExplorer;
 
@@ -13,4 +14,7 @@ public class KeywordsResponse : UnitsResponse
 
     [Display("All words")]
     public string AllKeywords => string.Join(", ", Keywords.Select(x => x.Word));
+
+    [Display("Keywords Termbase", Description = "All keywords as a termbase file. Can be imported into other Apps.")]
+    public FileReference TermbaseFile { get; set; }
 }

@@ -3,7 +3,7 @@ using Blackbird.Applications.Sdk.Common;
 
 namespace Apps.Ahrefs.Models.Entities;
 
-public class Keyword
+public class Keyword : IKeyword
 {
     [JsonProperty("keyword")]
     [Display("Keyword")]

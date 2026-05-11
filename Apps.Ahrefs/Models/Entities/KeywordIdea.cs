@@ -3,11 +3,11 @@ using Blackbird.Applications.Sdk.Common;
 
 namespace Apps.Ahrefs.Models.Entities;
 
-public class KeywordIdea
+public class KeywordIdea : IKeyword
 {
     [JsonProperty("keyword")]
     [Display("Keyword")]
-    public string Keyword { get; set; }
+    public string Word { get; set; }
 
     [JsonProperty("cpc")]
     [Display("Cost per click")]

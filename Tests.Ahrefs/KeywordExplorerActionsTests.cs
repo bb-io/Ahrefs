@@ -15,7 +15,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetKeywords_CountryAndKeywords_ReturnsKeywords()
     {
 		// Arrange
-		var action = new KeywordExplorerActions(InvocationContext);
+		var action = new KeywordExplorerActions(InvocationContext, new FileManager());
 		var request = new GetKeywordsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
 
 		// Act
@@ -30,7 +30,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetKeywords_CountryAndKeywordsAndTarget_ReturnsKeywords()
     {
         // Arrange
-        var action = new KeywordExplorerActions(InvocationContext);
+        var action = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetKeywordsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount], Target = "ahrefs.com" };
 
         // Act
@@ -45,7 +45,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetRelatedTerms_CountryAndKeywords_ReturnsRelatedTerms()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetRelatedTermsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
 
         // Act
@@ -60,7 +60,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetVolumeHistory_NoDates_ReturnsVolumeHistory()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetVolumeHistoryRequest { Country = "us", Keyword = FreeKeywordAhrefs };
 
         // Act
@@ -75,7 +75,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetVolumeHistory_CorrectDates_ReturnsVolumeHistory()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetVolumeHistoryRequest
         {
             Country = "us",
@@ -96,7 +96,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetVolumeHistory_IncorrectDates_ThrowsException()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetVolumeHistoryRequest { 
             Country = "us", 
             Keyword = FreeKeywordAhrefs, 
@@ -112,7 +112,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetVolumeByCountry_WithLimit_ReturnsCountries()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         int limit = 50;
         var request = new GetVolumeByCountryRequest { Keyword = FreeKeywordAhrefs, Limit = limit };
 
@@ -129,7 +129,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetVolumeByCountry_WithNoLimit_ReturnsCountries()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetVolumeByCountryRequest { Keyword = FreeKeywordAhrefs };
 
         // Act
@@ -145,7 +145,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetMatchingTerms_ReturnsMatchingTerms()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetMatchingTermsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
 
         // Act
@@ -160,7 +160,7 @@ public class KeywordExplorerActionsTests : TestBase
     public async Task GetSearchSuggestions_ReturnsSearchSuggestions()
     {
         // Arrange
-        var actions = new KeywordExplorerActions(InvocationContext);
+        var actions = new KeywordExplorerActions(InvocationContext, new FileManager());
         var request = new GetSearchSuggestionsRequest { Country = "us", Keywords = [FreeKeywordAhrefs, FreeKeywordWordcount] };
 
         // Act
