@@ -1,17 +1,21 @@
 ﻿using Apps.Ahrefs.Extensions;
+using Apps.Ahrefs.Models.Entities;
 using Apps.Ahrefs.Models.Requests.KeywordExplorer;
 using Apps.Ahrefs.Models.Responses.KeywordExplorer;
 using Blackbird.Applications.Sdk.Common;
 using Blackbird.Applications.Sdk.Common.Actions;
 using Blackbird.Applications.Sdk.Common.Exceptions;
+using Blackbird.Applications.Sdk.Common.Files;
 using Blackbird.Applications.Sdk.Common.Invocation;
+using Blackbird.Applications.SDK.Extensions.FileManagement.Interfaces;
+using Blackbird.Filters.Termbases;
 using RestSharp;
 using System.Text;
 
 namespace Apps.Ahrefs.Actions;
 
 [ActionList("Keyword explorer")]
-public class KeywordExplorerActions(InvocationContext invocationContext) : Invocable(invocationContext)
+public class KeywordExplorerActions(InvocationContext invocationContext, IFileManagementClient fileManagementClient) : Invocable(invocationContext)
 {
     [Action("Get keywords", Description = "Gets a keyword overview for the specified target, country and keywords")]
     public async Task<KeywordsResponse> GetKeywords([ActionParameter] GetKeywordsRequest request)
@@ -25,7 +29,9 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("target", request.Target);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
+        var result = await Client.ExecuteWithErrorHandling<KeywordsResponse>(restRequest);
+        result.TermbaseFile = await BuildTbx(result.Keywords, request.Country);
+        return result;
     }
 
     [Action("Get volume history", Description = "Gets volume history for the specified country, time period and keywords")]
@@ -64,7 +70,9 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        var result = await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        result.TermbaseFile = await BuildTbx(result.Keywords, request.Country);
+        return result;
     }
 
     [Action("Get related terms", Description = "Gets related terms for the specified country and keywords")]
@@ -77,7 +85,9 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        var result = await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        result.TermbaseFile = await BuildTbx(result.Keywords, request.Country);
+        return result;
     }  
         
     [Action("Get search suggestions", Description = "Gets search suggestions for the specified country and keywords")]
@@ -90,6 +100,27 @@ public class KeywordExplorerActions(InvocationContext invocationContext) : Invoc
         query.AppendIfNotEmpty("keywords", request.Keywords);
 
         var restRequest = new RestRequest(query.ToString());
-        return await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        var result = await Client.ExecuteWithErrorHandling<KeywordIdeasResponse>(restRequest);
+        result.TermbaseFile = await BuildTbx(result.Keywords, request.Country);
+        return result;
+    }
+
+    private async Task<FileReference> BuildTbx(IEnumerable<IKeyword> keywords, string language)
+    {
+        var termbase = new Termbase
+        {
+            Language = language,
+            TbxFileName = "ahrefs_export.tbx"
+        };
+
+        foreach(var keyword in keywords)
+        {
+            var groupId = "ahrefs_group_" + keyword.Word.Replace(' ', '_');
+            var termId = "ahrefs_term_" + keyword.Word.Replace(' ', '_'); ;
+            var group = new TermGroup() { Definition = keyword.Word, Id = groupId, Terms = [new Term(keyword.Word, language) { Id = termId}] };
+            termbase.TermGroups.Add(group);
+        }
+
+        return await fileManagementClient.UploadAsync(new MemoryStream(Encoding.UTF8.GetBytes(termbase.Serialize())), "application/x-tbx", termbase.TbxFileName);
     }
 }
